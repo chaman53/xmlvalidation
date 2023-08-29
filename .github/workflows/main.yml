@@ -20,5 +20,5 @@ jobs:
         sudo apt-get install -y libxml2-utils
 
         # Validate XML files using xmllint
-        xmllint --noout path/to/your/xml/files/**/*.xml
+        xmllint --noout xmlvalidation/sqlmapper/**/*.xml
 
