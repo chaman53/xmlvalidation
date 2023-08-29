@@ -1,0 +1,4 @@
+-   repo: https://github.com/pre-commit/mirrors-xmllint
+    rev: v1.2
+    hooks:
+    -   id: xmllint
