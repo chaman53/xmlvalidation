@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - 'sqlmapper/**'
+    branches:
+      - 'main'
 
 jobs:
   xml-validation:
