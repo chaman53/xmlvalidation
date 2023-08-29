@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main  # Adjust to your repository's main branch
+on:
+  push:
+    paths:
+      - 'sqlmapper/**'
 
 jobs:
   xml-validation:
