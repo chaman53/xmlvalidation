@@ -3,22 +3,24 @@ name: XML Validation
 on:
   push:
     branches:
-      - main  # Adjust this branch name as needed
+      - main  # Adjust to your repository's main branch
 
 jobs:
   xml-validation:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Validate XML
-      run: |
-        # Install xmllint
-        sudo apt-get update
-        sudo apt-get install -y libxml2-utils
+      - name: Validate XML
+        run: xmllint --noout xmlvalidation/sqlmapper/**/*.xml
 
-        # Validate XML files using xmllint
-        xmllint --noout xmlvalidation/sqlmapper/**/*.xml
+      - name: Check Validation Result
+        run: |
+          if [ $? -ne 0 ]; then
+            echo "XML validation failed. Aborting commit."
+            exit 1
+          fi
+
 
