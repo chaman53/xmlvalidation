@@ -1,27 +1,33 @@
-name: XML Validation
+name: Folder Content Check
+
 on:
-  push:
+  pull_request:
     paths:
       - 'sqlmapper/**'
-    branches:
-      - 'main'
 
 jobs:
-  xml-validation:
+  check-folder:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Validate XML
-        run: xmllint --noout xmlvalidation/sqlmapper/**/*.xml
-
-      - name: Check Validation Result
+      - name: Run content check
         run: |
-          if [ $? -ne 0 ]; then
-            echo "XML validation failed. Aborting commit."
+          # Add your content validation logic here
+          if [[ -f xmlvalidation/sqlmapper/**/*.xml ]]; then
+            echo "Error: Forbidden file found in the protected folder."
             exit 1
           fi
+        # Set the status check status based on the result
+        if [ $? -eq 0 ]; then
+          echo "::set-output name=status::success"
+        else
+          echo "::set-output name=status::failure"
+        fi
+
+    outputs:
+      status: ${{ steps.check-folder.outputs.status }}
 
 
