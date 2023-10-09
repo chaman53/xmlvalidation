@@ -1,34 +1,9 @@
-name: XML Validation
-on:
-  push:
-    paths:
-      - 'sqlmapper/**'
-    branches:
-      - 'main'
-
-jobs:
-  xml-validation:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Validate XML
-        run: xmllint --noout xmlvalidation/sqlmapper/**/*.xml
-
-      - name: Check Validation Result
-        run: |
-          if [ $? -ne 0 ]; then
-            echo "XML validation failed. Aborting commit."
-            exit 1
-          fi
 name: Folder Content Check
 
 on:
   pull_request:
     paths:
-      - 'xmlvalidation/sqlmapper/**'
+      - 'sqlmapper/**'
 
 jobs:
   check-folder:
